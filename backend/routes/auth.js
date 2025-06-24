@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {register, login} = require('../controllers/auth');
+const { getUser, register, login } = require('../controllers/auth');
+const authToken = require('../middlewares/auth');
 
 /**
  * @swagger
@@ -70,6 +71,7 @@ const {register, login} = require('../controllers/auth');
  *         description: Credenciais inválidas
  */
 
+router.get('/me', authToken, getUser);
 router.post('/register', register);
 router.post('/login', login);
 

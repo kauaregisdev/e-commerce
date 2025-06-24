@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const cors = require('cors');
 const express = require('express');
 const app = express();
 const adminRoutes = require('./routes/admin');
@@ -10,6 +11,10 @@ const connectDatabase = require('./config/database');
 const {swaggerUi, swaggerSpec} = require('./swagger');
 
 (async () => {
+    app.use(cors({
+        origin: process.env.CORS_ALLOWED_ORIGINS,
+        credentials: true
+    }));
     app.use(express.json());
     app.use('/admin', adminRoutes);
     app.use('/auth', authRoutes);

@@ -9,8 +9,10 @@ function authToken(req, res, next) {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.userId = decoded.userId;
-        req.userRole = decoded.role;
+        req.user = {
+            id: decoded.userId,
+            role: decoded.role
+        };
         next();
     } catch (err) {
         return res.status(403).json({error: 'Invalid or expired token.'});
