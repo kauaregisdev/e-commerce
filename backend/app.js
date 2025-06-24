@@ -14,10 +14,11 @@ const connectDatabase = require('./config/database');
     app.use('/auth', authRoutes);
     app.use('/categories', categoryRoutes);
     app.use('/products', productRoutes);
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
     console.log('Connecting database...');
     await connectDatabase();
 
     console.log('Running server...');
-    app.listen(process.env.PORT, () => console.log('✅ Server running at http://localhost:3000'));
+    app.listen(process.env.PORT, () => console.log('✅ Server running at http://localhost:3000\nSwagger docs: http://localhost:3000/api-docs'));
 })();
