@@ -7,6 +7,7 @@ const authRoutes = require('./routes/auth');
 const categoryRoutes = require('./routes/category');
 const productRoutes = require('./routes/product');
 const connectDatabase = require('./config/database');
+const {swaggerUi, swaggerSpec} = require('./swagger');
 
 (async () => {
     app.use(express.json());
