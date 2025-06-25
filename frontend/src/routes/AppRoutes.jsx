@@ -18,30 +18,34 @@ export default function AppRoutes() {
         <Routes>
             <Route path='/' element={<Layout />}>
 
+                {/* public */}
                 <Route index element={<Home />} />
-                <Route path='login' element={<Login />} />
-                <Route path='register' element={<Register />} />
-                <Route path='products' element={<Products />} />
-                <Route path='products/:id' element={<ProductDetails />} />
-                <Route path='unauthorized' element={<Unauthorized />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='/products' element={<Products />} />
+                <Route path='/products/:id' element={<ProductDetails />} />
 
-                <Route path='dashboard' element={
+                {/* users */}
+                <Route path='/dashboard' element={
                     <ProtectedRoute>
                         <Dashboard />
                     </ProtectedRoute>
                 } />
                 
-                <Route path='admin' element={
+                {/* admin */}
+                <Route path='/admin' element={
                     <AdminRoute>
                         <AdminDashboard />
                     </AdminRoute>
                 } />
-                <Route path='admin/users' element={
+                <Route path='/admin/users' element={
                     <AdminRoute>
                         <UsersList />
                     </AdminRoute>
                 } />
 
+                {/* errors */}
+                <Route path='/unauthorized' element={<Unauthorized />} />
                 <Route path='*' element={<NotFound />} />
             </Route>
         </Routes>

@@ -36,9 +36,14 @@ export default function Layout() {
                                 </li>
                             </>
                         ) : (
-                            <li>
-                                <Link to='/login' className='hover:text-red-300 transition'>Login</Link>
-                            </li>
+                            <>
+                                <li>
+                                    <Link to='/login' className='hover:text-red-300 transition'>Login</Link>
+                                </li>
+                                <li>
+                                    <Link to='/register' className='hover:text-red-300 transition'>Register</Link>
+                                </li>
+                            </>
                         )}
                     </ul>
                 </nav>
