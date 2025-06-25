@@ -3,6 +3,8 @@ const router = express.Router();
 const authToken = require('../middlewares/auth');
 const isAdmin = require('../middlewares/admin');
 const getUsers = require('../controllers/admin');
+const {createProduct} = require('../controllers/product');
+const {createCategory} = require('../controllers/category');
 
 /**
  * @swagger
@@ -42,5 +44,7 @@ const getUsers = require('../controllers/admin');
  */
 
 router.get('/users', authToken, isAdmin, getUsers);
+router.post('/products', authToken, isAdmin, createProduct);
+router.post('/categories', authToken, isAdmin, createCategory);
 
 module.exports = router;

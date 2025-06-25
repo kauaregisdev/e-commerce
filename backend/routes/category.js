@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authToken = require('../middlewares/auth');
-const isAdmin = require('../middlewares/admin');
-const {getCategories, createCategory} = require('../controllers/category');
+const {getCategories} = require('../controllers/category');
 
 /**
  * @swagger
@@ -20,33 +18,8 @@ const {getCategories, createCategory} = require('../controllers/category');
  *     responses:
  *       200:
  *         description: Lista de categorias retornada com sucesso
- *
- *   post:
- *     summary: Cria uma nova categoria (Admin somente)
- *     tags: [Categories]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - name
- *             properties:
- *               name:
- *                 type: string
- *     responses:
- *       201:
- *         description: Categoria criada com sucesso
- *       401:
- *         description: Não autorizado
- *       403:
- *         description: Acesso negado
  */
 
-router.get('/', authToken, getCategories);
-router.post('/', authToken, isAdmin, createCategory);
+router.get('/', getCategories);
 
 module.exports = router;
