@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getProducts} = require('../controllers/product');
+const {getProducts, getSingleProduct} = require('../controllers/product');
 
 /**
  * @swagger
@@ -21,5 +21,6 @@ const {getProducts} = require('../controllers/product');
  */
 
 router.get('/', getProducts);
+router.get('/:id', getSingleProduct);
 
 module.exports = router;

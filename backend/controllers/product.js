@@ -5,9 +5,16 @@ async function getProducts(req, res) {
     res.json(products);
 }
 
+async function getSingleProduct(req, res) {
+    const product = await Product.findOne({
+        _id: req.params.id
+    }).populate('category');
+    res.json(product);
+}
+
 async function createProduct(req, res) {
     const product = await Product.create(req.body);
     res.status(201).json(product);
 }
 
-module.exports = {getProducts, createProduct};
+module.exports = {getProducts, getSingleProduct, createProduct};
