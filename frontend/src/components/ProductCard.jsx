@@ -18,7 +18,7 @@ export default function ProductCard({product}) {
                 <span className="text-red-800 font-bold text-lg">R$ {product.price.toFixed(2)}</span>
                 <Link
                     to={`/products/${product._id}`}
-                    className="inline-block bg-red-600 text-white px-5 py-2 rounded-lg shadow hover:bg-red-700 transition"
+                    className="inline-block bg-red-600 text-white px-5 py-2 ml-5 rounded-lg shadow hover:bg-red-700 transition"
                 >
                     See details
                 </Link>
