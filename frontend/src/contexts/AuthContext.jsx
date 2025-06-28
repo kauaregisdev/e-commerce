@@ -22,11 +22,10 @@ export function AuthProvider({ children }) {
     }, [token]);
 
     const login = async (credentials) => {
-        const res = await api.post('auth/login', credentials);
+        const res = await api.post('/auth/login', credentials);
         const { token } = res.data;
         localStorage.setItem('token', token);
         setToken(token);
-        navigate('/dashboard');
     };
 
     const logout = () => {

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export async function getToken(username, password) {
+export async function getToken(data) {
     const res = await axios.post('/api/auth/login', {
-        username,
-        password
+        username: data.username,
+        password: data.password
     });
     return res.data.token;
 }
