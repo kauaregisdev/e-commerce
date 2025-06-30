@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
 
 const AuthContext = createContext();
@@ -7,18 +6,21 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token') || '');
-    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-    if (token) {
-        api.get('auth/me', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }, })
-            .then((res) => setUser(res.data))
-            .catch(() => logout());
+        if (token) {
+            api.get('auth/me', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+                .then((res) => setUser(res.data))
+                .catch(() => logout())
+                .finally(() => setLoading(false));
+        } else {
+            setLoading(false);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
 
     const login = async (credentials) => {
@@ -32,7 +34,6 @@ export function AuthProvider({ children }) {
         localStorage.removeItem('token');
         setUser(null);
         setToken('');
-        navigate('/login');
     };
 
     const isAuthenticated = !!user;
@@ -40,9 +41,9 @@ export function AuthProvider({ children }) {
 
     return (
         <AuthContext.Provider
-        value={{ user, token, login, logout, isAuthenticated, isAdmin }}
+        value={{ user, token, login, logout, loading, isAuthenticated, isAdmin }}
         >
-        {children}
+            {children}
         </AuthContext.Provider>
     );
 }
