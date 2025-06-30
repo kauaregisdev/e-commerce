@@ -7,7 +7,7 @@ export default function ProductCard({product}) {
                 <img
                     src={product.image}
                     alt={product.title}
-                    className="h-48 w-full object-cover"
+                    className="h-48 w-full rounded-2xl object-cover"
                 />
             )}
             <div className="p-4">
