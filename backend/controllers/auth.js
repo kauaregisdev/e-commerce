@@ -3,10 +3,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 async function getUser(req, res) {
-    res.json({
-        id: req.user.id,
-        role: req.user.role
-    });
+    res.json(req.user);
 }
 
 async function register(req, res) {

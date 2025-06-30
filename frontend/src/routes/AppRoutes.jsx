@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import Layout from '../Layout';
+import Layout from '../components/Layout';
 import ProtectedRoute from '../middlewares/ProtectedRoute';
 import AdminRoute from '../middlewares/AdminRoute';
 import Home from '../pages/Home';

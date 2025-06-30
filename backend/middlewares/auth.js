@@ -10,7 +10,8 @@ function authToken(req, res, next) {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = {
-            id: decoded.userId,
+            _id: decoded.userId,
+            username: decoded.username,
             role: decoded.role
         };
         next();
