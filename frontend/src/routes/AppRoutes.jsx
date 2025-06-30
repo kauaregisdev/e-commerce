@@ -9,6 +9,8 @@ import Products from '../pages/Products';
 import ProductDetails from '../pages/ProductDetails';
 import Dashboard from '../pages/Dashboard';
 import AdminDashboard from '../pages/admin/AdminDashboard';
+import AdminProducts from '../pages/admin/AdminProducts';
+import AdminUsers from '../pages/admin/AdminUsers';
 import NotFound from '../pages/errors/NotFound';
 import Unauthorized from '../pages/errors/Unauthorized';
 
@@ -32,11 +34,11 @@ export default function AppRoutes() {
                 } />
                 
                 {/* admin */}
-                <Route path='/admin' element={
-                    <AdminRoute>
-                        <AdminDashboard />
-                    </AdminRoute>
-                } />
+                <Route path='/admin' element={<AdminRoute />}>
+                    <Route index element={<AdminDashboard />} />
+                    <Route path='products' element={<AdminProducts />} />
+                    <Route path='users' element={<AdminUsers />} />
+                </Route>
 
                 {/* errors */}
                 <Route path='/unauthorized' element={<Unauthorized />} />
