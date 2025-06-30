@@ -17,4 +17,16 @@ async function createProduct(req, res) {
     res.status(201).json(product);
 }
 
-module.exports = {getProducts, getSingleProduct, createProduct};
+async function deleteProduct(req, res) {
+    try {
+        const product = await Product.findOneAndDelete({
+            _id: req.params.id
+        });
+        if (!product) return res.status(404).json({error: 'Product not found.'});
+        res.status(204).end();
+    } catch (err) {
+        res.status(500).json({error: err.message});
+    }
+}
+
+module.exports = {getProducts, getSingleProduct, createProduct, deleteProduct};

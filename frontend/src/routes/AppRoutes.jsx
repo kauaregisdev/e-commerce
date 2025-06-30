@@ -9,6 +9,7 @@ import Products from '../pages/Products';
 import ProductDetails from '../pages/ProductDetails';
 import Dashboard from '../pages/Dashboard';
 import AdminDashboard from '../pages/admin/AdminDashboard';
+import AdminCategories from '../pages/admin/AdminCategories';
 import AdminProducts from '../pages/admin/AdminProducts';
 import AdminUsers from '../pages/admin/AdminUsers';
 import NotFound from '../pages/errors/NotFound';
@@ -36,6 +37,7 @@ export default function AppRoutes() {
                 {/* admin */}
                 <Route path='/admin' element={<AdminRoute />}>
                     <Route index element={<AdminDashboard />} />
+                    <Route path='categories' element={<AdminCategories />} />
                     <Route path='products' element={<AdminProducts />} />
                     <Route path='users' element={<AdminUsers />} />
                 </Route>
