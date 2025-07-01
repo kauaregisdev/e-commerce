@@ -7,6 +7,7 @@ const adminRoutes = require('./routes/admin');
 const authRoutes = require('./routes/auth');
 const categoryRoutes = require('./routes/category');
 const productRoutes = require('./routes/product');
+const cartRoutes = require('./routes/cart');
 const connectDatabase = require('./config/database');
 const {swaggerUi, swaggerSpec} = require('./swagger');
 
@@ -20,6 +21,7 @@ const {swaggerUi, swaggerSpec} = require('./swagger');
     app.use('/auth', authRoutes);
     app.use('/categories', categoryRoutes);
     app.use('/products', productRoutes);
+    app.use('/cart', cartRoutes);
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
     console.log('Connecting database...');
