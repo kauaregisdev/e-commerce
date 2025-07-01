@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { api } from '../services/api';
+import { syncCart } from "../utils/syncCart";
 
 const AuthContext = createContext();
 
@@ -28,6 +29,7 @@ export function AuthProvider({ children }) {
         const { token } = res.data;
         localStorage.setItem('token', token);
         setToken(token);
+        await syncCart(JSON.parse(localStorage.getItem('cart')) || [], token);
     };
 
     const logout = () => {

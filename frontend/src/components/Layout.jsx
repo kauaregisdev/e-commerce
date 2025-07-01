@@ -14,6 +14,9 @@ export default function Layout() {
                             <Link to='/' className='hover:text-red-300 transition'>Home</Link>
                         </li>
                         <li>
+                            <Link to='/cart' className='hover:text-red-300 transition'>Cart</Link>
+                        </li>
+                        <li>
                             <Link to='/products' className='hover:text-red-300 transition'>Products</Link>
                         </li>
                         {isAuthenticated ? (
