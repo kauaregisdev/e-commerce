@@ -5,6 +5,13 @@ async function getCategories(req, res) {
     res.json(categories);
 }
 
+async function getSingleCategory(req, res) {
+    const category = await Category.findOne({
+        _id: req.params.id
+    });
+    res.json(category);
+}
+
 async function createCategory(req, res) {
     const category = await Category.create(req.body);
     res.status(201).json(category);
@@ -22,4 +29,4 @@ async function deleteCategory(req, res) {
     }
 }
 
-module.exports = {getCategories, createCategory, deleteCategory};
+module.exports = {getCategories, getSingleCategory, createCategory, deleteCategory};

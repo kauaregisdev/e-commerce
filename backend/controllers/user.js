@@ -1,7 +1,8 @@
 const User = require('../models/User');
 
-async function getUser(req, res) {
-    res.json(req.user);
+async function getUsers(req, res) {
+    const users = await User.find();
+    res.json(users);
 }
 
 async function deleteUser(req, res) {
@@ -17,6 +18,6 @@ async function deleteUser(req, res) {
 }
 
 module.exports = {
-    getUser,
+    getUsers,
     deleteUser
 };

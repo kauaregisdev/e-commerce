@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getCategories} = require('../controllers/category');
+const {getCategories, getSingleCategory} = require('../controllers/category');
 
 /**
  * @swagger
@@ -21,5 +21,6 @@ const {getCategories} = require('../controllers/category');
  */
 
 router.get('/', getCategories);
+router.get('/:id', getSingleCategory);
 
 module.exports = router;

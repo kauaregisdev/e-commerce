@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const authToken = require('../middlewares/auth');
 const isAdmin = require('../middlewares/admin');
-const getUsers = require('../controllers/admin');
 const {createProduct, deleteProduct} = require('../controllers/product');
 const {createCategory, deleteCategory} = require('../controllers/category');
-const {deleteUser} = require('../controllers/user');
+const {getUsers, deleteUser} = require('../controllers/user');
 
 /**
  * @swagger
