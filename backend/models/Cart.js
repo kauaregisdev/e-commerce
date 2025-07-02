@@ -24,4 +24,11 @@ const cartSchema = new mongoose.Schema({
     timestamps: true
 });
 
+cartSchema.set('toJSON', {
+    transform: function (doc, ret) {
+        delete ret.__v;
+        return ret;
+    }
+});
+
 module.exports = mongoose.model('Cart', cartSchema);

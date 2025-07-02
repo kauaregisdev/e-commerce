@@ -17,7 +17,7 @@ async function getCart(req, res) {
 
 async function syncCart(req, res) {
     const userId = req.user._id;
-    const items = req.body.items;
+    const items = !!req.body.items ? req.body.items : [];
 
     if (!Array.isArray(items)) {
         return res.status(400).json({
@@ -38,7 +38,6 @@ async function syncCart(req, res) {
                 upsert: true
             }
         ).populate('items.product');
-
         res.json(updatedCart);
     } catch (err) {
         res.status(500).json({
