@@ -2,12 +2,14 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from '../components/Layout';
 import ProtectedRoute from '../middlewares/ProtectedRoute';
 import AdminRoute from '../middlewares/AdminRoute';
+import UserOnlyRoute from '../middlewares/UserOnlyRoute';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Products from '../pages/Products';
 import ProductDetails from '../pages/ProductDetails';
 import Cart from '../pages/Cart';
+import Checkout from '../pages/Checkout';
 import Dashboard from '../pages/Dashboard';
 import AdminDashboard from '../pages/admin/AdminDashboard';
 import AdminCategories from '../pages/admin/AdminCategories';
@@ -27,7 +29,6 @@ export default function AppRoutes() {
                 <Route path='/register' element={<Register />} />
                 <Route path='/products' element={<Products />} />
                 <Route path='/products/:id' element={<ProductDetails />} />
-                <Route path='/cart' element={<Cart />} />
 
                 {/* users */}
                 <Route path='/dashboard' element={
@@ -35,6 +36,12 @@ export default function AppRoutes() {
                         <Dashboard />
                     </ProtectedRoute>
                 } />
+
+                {/* user only */}
+                <Route path='/' element={<UserOnlyRoute />}>
+                    <Route path='cart' element={<Cart />} />
+                    <Route path='checkout' element={<Checkout />} />
+                </Route>
                 
                 {/* admin */}
                 <Route path='/admin' element={<AdminRoute />}>

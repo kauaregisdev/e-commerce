@@ -5,12 +5,12 @@ import { CartProvider } from "./contexts/CartContext";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <BrowserRouter>
           <AppRoutes />
-        </CartProvider>
-      </AuthProvider>
-    </BrowserRouter>
+        </BrowserRouter>
+      </CartProvider>
+    </AuthProvider>
   );
 }
