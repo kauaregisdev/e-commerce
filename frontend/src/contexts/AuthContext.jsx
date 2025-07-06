@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
         const { token } = res.data;
         localStorage.setItem('token', token);
         setToken(token);
-        await syncCart(JSON.parse(localStorage.getItem('cart')) || [], token);
+        await syncCart(JSON.parse(localStorage.getItem('cartItems')) || [], token);
     };
 
     const logout = () => {

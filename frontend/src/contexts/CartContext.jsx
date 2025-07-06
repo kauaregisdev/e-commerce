@@ -1,61 +1,123 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { useAuth } from './AuthContext';
+import { api } from "../services/api";
+import { syncCart } from "../utils/syncCart";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-    const [cart, setCart] = useState(() => {
-        const stored = localStorage.getItem('cart');
-        return stored ? JSON.parse(stored) : [];
-    });
+    const { token, isAuthenticated } = useAuth();
+    const [cartItems, setCartItems] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }, [cart]);
-
-    const addToCart = product => {
-        setCart(prev => {
-            const existing = prev.find(item => item._id === product._id);
-            if (existing) {
-                return prev.map(item =>
-                    item._id === product._id
-                    ? { ...item, quantity: item.quantity + 1 }
-                    : item
-                );
+        if (isAuthenticated) {
+            const localCart = JSON.parse(localStorage.getItem('cartItems')) || [];
+            if (localCart.length > 0) {
+                syncCart(localCart, token)
+                .then(() => {
+                    localStorage.removeItem('cartItems');
+                    api.get('/cart', {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
+                    .then(res => setCartItems(res.data.items))
+                    .catch(err => console.error(err))
+                    .finally(() => setLoading(false));
+                });
+            } else {
+                api.get('/cart', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then(res => setCartItems(res.data.items))
+                .catch(err => console.error(err))
+                .finally(() => setLoading(false));
             }
-            return [...prev, { ...product, quantity: 1 }];
-        });
+        } else {
+            const localCart = JSON.parse(localStorage.getItem('cartItems')) || [];
+            setCartItems(localCart);
+            setLoading(false);
+        }
+    }, [isAuthenticated, token]);
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            setCartItems([]);
+        }
+    }, [isAuthenticated]);
+
+    useEffect(() => {
+        if (!isAuthenticated && Array.isArray(cartItems)) {
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        }
+    }, [cartItems, isAuthenticated]);
+
+    const addToCart = (product, quantity = 1) => {
+        const existing = cartItems.find(item => item.product._id === product._id);
+        if (existing) {
+            setCartItems(prev =>
+                prev.map(item =>
+                    item.product._id === product._id
+                    ? { ...item, quantity: item.quantity + quantity }
+                    : item
+                )
+            );
+        } else {
+            setCartItems(prev => [...prev, {
+                product, quantity
+            }]);
+        }
     };
 
     const removeFromCart = productId => {
-        setCart(prev => prev.filter(item => item._id !== productId));
+        setCartItems(prev => prev.filter(item => item.product._id !== productId));
     };
 
     const updateQuantity = (productId, quantity) => {
-        setCart(prev =>
+        setCartItems(prev =>
             prev.map(item =>
-                item._id === productId ? { ...item, quantity } : item
+                item.product._id === productId ? { ...item, quantity } : item
             )
         );
+        if (isAuthenticated) {
+            api.put('/cart/sync', {
+                productId, quantity
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .catch(err => console.error(err));
+        }
     };
 
-    const clearCart = () => setCart([]);
+    const clearCart = () => {
+        setCartItems([]);
+    };
 
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const total = Array.isArray(cartItems)
+    ? cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
+    : 0;
+
+    const value = {
+        cartItems,
+        setCartItems,
+        loading,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        total
+    };
 
     return (
-        <CartContext.Provider
-            value={{
-                cart,
-                addToCart,
-                removeFromCart,
-                updateQuantity,
-                clearCart,
-                total
-            }}
-        >
+        <CartContext.Provider value={value}>
             {children}
         </CartContext.Provider>
-    );
+    )
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
+import { useCart } from "../contexts/CartContext";
 import { api } from '../services/api';
 
 export default function ProductDetails() {
+    const { addToCart } = useCart();
     const { id } = useParams();
     const [product, setProduct] = useState(null);
 
@@ -32,8 +34,8 @@ export default function ProductDetails() {
                     Go back
                 </Link>
                 <button
+                    onClick={() => addToCart(product)}
                     className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition"
-                    disabled
                 >
                     Add to cart
                 </button>
