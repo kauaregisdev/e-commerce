@@ -31,4 +31,4 @@ cartSchema.set('toJSON', {
     }
 });
 
-export const Cart = mongoose.model('Cart', cartSchema);
+export const Cart = mongoose.models.Cart || mongoose.model('Cart', cartSchema);
