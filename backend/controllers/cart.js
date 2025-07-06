@@ -1,6 +1,6 @@
-const Cart = require('../models/Cart');
+import {Cart} from '../models/Cart.js';
 
-async function getCart(req, res) {
+export async function getCart(req, res) {
     try {
         const cart = await Cart.findOne({
             user: req.user._id
@@ -15,7 +15,7 @@ async function getCart(req, res) {
     }
 }
 
-async function syncCart(req, res) {
+export async function syncCart(req, res) {
     const userId = req.user._id;
     const items = !!req.body.items ? req.body.items : [];
 
@@ -47,7 +47,7 @@ async function syncCart(req, res) {
     }
 }
 
-async function updateCart(req, res) {
+export async function updateCart(req, res) {
     const userId = req.user._id;
     const { productId, quantity } = req.body;
 
@@ -85,9 +85,3 @@ async function updateCart(req, res) {
         });
     }
 }
-
-module.exports = {
-    getCart,
-    syncCart,
-    updateCart
-};

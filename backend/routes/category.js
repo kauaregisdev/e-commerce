@@ -1,26 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const {getCategories, getSingleCategory} = require('../controllers/category');
+import express from 'express';
+import {getCategories, getSingleCategory} from '../controllers/category.js';
 
-/**
- * @swagger
- * tags:
- *   name: Categories
- *   description: Gerenciamento de categorias de produtos
- */
-
-/**
- * @swagger
- * /categories:
- *   get:
- *     summary: Lista todas as categorias
- *     tags: [Categories]
- *     responses:
- *       200:
- *         description: Lista de categorias retornada com sucesso
- */
+export const router = express.Router();
 
 router.get('/', getCategories);
 router.get('/:id', getSingleCategory);
-
-module.exports = router;

@@ -1,15 +1,14 @@
-require('dotenv').config();
+import 'dotenv/config';
+import cors from 'cors';
+import express from 'express';
+import {router as adminRoutes} from './routes/admin.js';
+import {router as authRoutes} from './routes/auth.js';
+import {router as categoryRoutes} from './routes/category.js';
+import {router as productRoutes} from './routes/product.js';
+import {router as cartRoutes} from './routes/cart.js';
+import connectDatabase from './config/database.js';
 
-const cors = require('cors');
-const express = require('express');
 const app = express();
-const adminRoutes = require('./routes/admin');
-const authRoutes = require('./routes/auth');
-const categoryRoutes = require('./routes/category');
-const productRoutes = require('./routes/product');
-const cartRoutes = require('./routes/cart');
-const connectDatabase = require('./config/database');
-const {swaggerUi, swaggerSpec} = require('./swagger');
 
 (async () => {
     app.use(cors({
@@ -22,11 +21,10 @@ const {swaggerUi, swaggerSpec} = require('./swagger');
     app.use('/categories', categoryRoutes);
     app.use('/products', productRoutes);
     app.use('/cart', cartRoutes);
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
     console.log('Connecting database...');
     await connectDatabase();
 
     console.log('Running server...');
-    app.listen(process.env.PORT, () => console.log('✅ Server running at http://localhost:3000\nSwagger docs: http://localhost:3000/api-docs'));
+    app.listen(process.env.PORT, () => console.log('✅ Server running at http://localhost:3000'));
 })();

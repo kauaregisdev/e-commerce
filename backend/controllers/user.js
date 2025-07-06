@@ -1,11 +1,11 @@
-const User = require('../models/User');
+import {User} from '../models/User.js';
 
-async function getUsers(req, res) {
+export async function getUsers(req, res) {
     const users = await User.find();
     res.json(users);
 }
 
-async function deleteUser(req, res) {
+export async function deleteUser(req, res) {
     try {
         const user = await User.findOneAndDelete({
             _id: req.params.id
@@ -16,8 +16,3 @@ async function deleteUser(req, res) {
         res.status(500).json({error: err.message});
     }
 }
-
-module.exports = {
-    getUsers,
-    deleteUser
-};
