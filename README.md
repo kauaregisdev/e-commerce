@@ -1,114 +1,150 @@
-# Aplicação de E-commerce Full-Stack
+# E-commerce MERN
 
-Este projeto é uma aplicação de e-commerce full-stack com backend em Node.js e frontend em React.
+Este projeto é uma aplicação de e-commerce fullstack desenvolvida com **MongoDB**, **Express**, **React**, **Node.js** e **Tailwind CSS**. Ele oferece funcionalidades completas para usuários e administradores, incluindo autenticação, gerenciamento de produtos, carrinho de compras, checkout e painel administrativo.
 
-## Estrutura do Projeto
+---
 
-O projeto é dividido em duas partes principais:
+## 🛠️ Tecnologias Utilizadas
 
-- `backend/`: Contém a aplicação Node.js/Express que serve a API.
-- `frontend/`: Contém a aplicação React que fornece a interface do usuário.
+- **Frontend**
+  - [React](https://react.dev/)
+  - [React Router DOM](https://reactrouter.com/)
+  - [Axios](https://axios-http.com/)
+  - [Tailwind CSS](https://tailwindcss.com/)
+  - [Vite](https://vitejs.dev/)
 
-## Backend
+- **Backend**
+  - [Node.js](https://nodejs.org/)
+  - [Express](https://expressjs.com/)
+  - [Mongoose](https://mongoosejs.com/)
+  - [MongoDB](https://www.mongodb.com/)
+  - [JWT](https://jwt.io/) (autenticação)
+  - [bcrypt](https://github.com/kelektiv/node.bcrypt.js) (hash de senha)
+  - [dotenv](https://github.com/motdotla/dotenv) (variáveis de ambiente)
+  - [Swagger](https://swagger.io/) (documentação da API)
 
-O backend é uma aplicação Node.js construída com o framework Express. Ele utiliza MongoDB como banco de dados e Mongoose como ODM.
+---
 
-### Funcionalidades
+## 🚀 Funcionalidades
 
-- **Autenticação:** Registro e login de usuários com autenticação baseada em JWT.
-- **Categorias:** Operações CRUD para categorias de produtos.
-- **Produtos:** Operações CRUD para produtos.
-- **Admin:** Rotas exclusivas para administradores para gerenciar usuários, produtos e categorias.
-- **Documentação da API:** Swagger é usado para documentação da API, disponível em `/api-docs`.
+### Usuário
+- Cadastro e login com autenticação JWT
+- Visualização de produtos e detalhes
+- Adição, remoção e atualização de itens no carrinho
+- Checkout com endereço de entrega
+- Visualização de pedidos realizados (dashboard)
+- Logout
 
-### Tecnologias
+### Administrador
+- Painel administrativo protegido
+- Gerenciamento de usuários (listar, remover)
+- Gerenciamento de produtos (criar, listar, remover)
+- Gerenciamento de categorias (criar, listar, remover)
 
-- Node.js
-- Express
-- MongoDB
-- Mongoose
-- JWT (JSON Web Tokens)
-- Swagger
+---
 
-### Configuração e Execução
+## 📦 Estrutura de Pastas
 
-1. Navegue até o diretório `backend/`.
-2. Crie um arquivo `.env` baseado no `.env.example` (se disponível) e configure as variáveis de ambiente necessárias (ex: string de conexão do banco de dados, segredo JWT).
-3. Instale as dependências: `npm install`
-4. Execute o servidor: `npm start` (ou `npm run dev` se um script de desenvolvimento estiver disponível)
+```
+📦 backend/
+├── server.js
+├── /config
+├── /controllers
+├── /middlewares
+├── /models
+├── /routes
 
-O servidor backend normalmente será executado em `http://localhost:3000`.
+📦 frontend/
+├── index.html
+├── vite.config.js
+├── eslint.config.js
+├── .env.production
+├── /public
+├── /src
+│   ├── main.jsx
+│   ├── App.jsx
+│   ├── /components
+│   ├── /contexts
+│   ├── /pages
+│   ├── /middlewares
+│   ├── /routes
+│   ├── /services
+│   ├── /utils
+│   └── /styles
+```
 
-## Frontend
+---
 
-O frontend é uma aplicação React construída com Vite e estilizada com Tailwind CSS.
-
-### Funcionalidades
-
-- **Interface do Usuário:** Fornece uma interface amigável para navegar pelos produtos, visualizar detalhes dos produtos e gerenciar contas de usuário.
-- **Roteamento:** Utiliza React Router para roteamento no lado do cliente.
-- **Integração com API:** Comunica-se com a API do backend usando Axios.
-- **Autenticação:** Gerencia login, registro de usuários e gerenciamento de tokens.
-- **Painel de Administração:** Fornece uma interface de administração para gerenciar usuários, produtos e categorias.
-
-### Tecnologias
-
-- React
-- Vite
-- Tailwind CSS
-- React Router
-- Axios
-
-### Configuração e Execução
-
-1. Navegue até o diretório `frontend/`.
-2. Instale as dependências: `npm install`
-3. Execute o servidor de desenvolvimento: `npm run dev`
-
-O servidor de desenvolvimento frontend normalmente será executado em `http://localhost:5173`.
-
-## Scripts Disponíveis
-
-### Backend (`backend/package.json`)
-
-- `npm test`: Executa testes (se configurado).
-- `npm start`: Inicia o servidor de produção.
-- (Outros scripts conforme definido em `package.json`)
-
-### Frontend (`frontend/package.json`)
-
-- `npm run dev`: Inicia o servidor de desenvolvimento Vite.
-- `npm run build`: Compila a aplicação para produção.
-- `npm run lint`: Executa o linter no código.
-- `npm run preview`: Visualiza a build de produção localmente.
-
-## Endpoints da API
-
-O backend fornece os seguintes endpoints de API:
+## 🌐 Rotas da API
 
 ### Autenticação
-
-- `POST /auth/register`: Registra um novo usuário.
-- `POST /auth/login`: Autentica um usuário e retorna um token JWT.
-- `GET /auth/me`: Obtém as informações do usuário atualmente logado (requer token).
-
-### Categorias
-
-- `GET /categories`: Obtém todas as categorias.
-- `GET /categories/:id`: Obtém uma única categoria pelo ID.
-- `POST /admin/categories`: Cria uma nova categoria (somente admin).
-- `DELETE /admin/categories/:id`: Deleta uma categoria pelo ID (somente admin).
+- `POST   /auth/register` — Cadastro de usuário
+- `POST   /auth/login` — Login de usuário
+- `GET    /auth/me` — Dados do usuário autenticado
 
 ### Produtos
+- `GET    /products` — Listar produtos
+- `GET    /products/:id` — Detalhes de um produto
 
-- `GET /products`: Obtém todos os produtos.
-- `GET /products/:id`: Obtém um único produto pelo ID.
-- `POST /admin/products`: Cria um novo produto (somente admin).
-- `DELETE /admin/products/:id`: Deleta um produto pelo ID (somente admin).
+### Categorias
+- `GET    /categories` — Listar categorias
+- `GET    /categories/:id` — Detalhes de uma categoria
 
-### Admin
+### Carrinho
+- `GET    /cart` — Obter carrinho do usuário autenticado
+- `POST   /cart/sync` — Sincronizar carrinho (login)
+- `PUT    /cart/update` — Atualizar quantidade de item no carrinho
 
-- `GET /admin/users`: Obtém todos os usuários (somente admin).
-- `DELETE /admin/users/:id`: Deleta um usuário pelo ID (somente admin).
+### Pedidos
+- `POST   /orders` — Criar pedido (checkout)
+- `GET    /orders` — Listar pedidos do usuário
 
-Consulte a documentação do Swagger em `/api-docs` no servidor backend para mais detalhes sobre os formatos de requisição/resposta.
+### Admin (requer autenticação e permissão de admin)
+- `GET    /admin/users` — Listar usuários
+- `DELETE /admin/users/:id` — Remover usuário
+- `POST   /admin/products` — Criar produto
+- `DELETE /admin/products/:id` — Remover produto
+- `POST   /admin/categories` — Criar categoria
+- `DELETE /admin/categories/:id` — Remover categoria
+
+---
+
+## 📝 Como rodar o projeto
+
+### Pré-requisitos
+- Node.js 18+
+- MongoDB
+
+### Backend
+
+```bash
+cd backend
+cp .env.example .env # configure as variáveis de ambiente
+npm install
+npm start
+```
+
+### Frontend
+
+```bash
+cd frontend
+cp .env.example .env.production
+npm install
+npm run dev
+```
+
+Acesse o frontend em http://localhost:5173.
+
+## 📄 Observações
+
+- O projeto utiliza autenticação JWT para proteger rotas.
+- O painel admin só é acessível para usuários com papel admin.
+- O carrinho é sincronizado entre localStorage e banco de dados ao logar.
+- O checkout exige endereço de entrega e limpa o carrinho após o pedido.
+
+## 👤 Autor
+[Kauã Régis](https://github.com/kauaregisdev)
+
+## 📃 Licença
+MIT
+
